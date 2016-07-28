@@ -80,7 +80,18 @@ def callback_handling():
 
   # Redirect to the User logged in page that you want here
   # In our case it's /dashboard
-  return redirect('/dashboard')
+  return redirect(url_for('index'))
+
+
+def requires_auth(f):
+  @wraps(f)
+  def decorated(*args, **kwargs):
+    if 'profile' not in session:
+      # Redirect to Login page here
+      return redirect('/')
+    return f(*args, **kwargs)
+
+  return decorated
 
 
 #routes - posts
@@ -93,21 +104,23 @@ def index():
   return render_template('index.html', posts=Post.query.all())
 
 @app.route('/posts/new')
+@requires_auth
 def new():
+  print(session['profile']['name'])
   return render_template('new.html', form=PostForm())
 
 @app.route('/posts', methods=['POST'])
 def create():
   form = PostForm()
   if form.validate_on_submit():
-    new_post = Post(form.title.data, form.url.data, form.game.data, form.user.data)
+    new_post = Post(form.title.data, form.url.data, 'Overwatch', session['profile']['name'])
     db.session.add(new_post)
     db.session.commit()
 
     return redirect(url_for('index'))
-  return render_template('newpost.html', form=form)
+  return render_template('new.html', form=form)
 
-# These have been commented out since all of my auth is handled by Google
+# These have been commented out since all of my auth is handled by Auth0/Google
 # #routes - users
 # @app.route('/users')
 # def userList():
@@ -127,6 +140,7 @@ def create():
 
 #     return redirect(url_for('index'))
 #   return render_template('newuser.html', form=form)
+
 
 if __name__ == '__main__':
   app.run(debug=True, port=3000)
