@@ -17,8 +17,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex8-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
-            <li class="active"><a href="epicwhenhome.html">Upload Clip</a></li>
+            <li><a href="/">Home</a></li>
+            <li class="active"><a href="#">Upload Clip</a></li>
             <li><a href="#">Logout</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -42,14 +42,6 @@
             </span>
           </span>
 
-            <form action="{{url_for('create')}}" method='POST'>
-              {{form.csrf_token}}
-              Make: {{form.title}}
-              Model: {{form.url}}
-              Year: {{form.game}}
-              <input type="submit">
-            </form>
-
           <div class="post-sign-in">
             <div>
               <img id="channel-thumbnail">
@@ -65,12 +57,6 @@
               <textarea id="description">Default description</textarea>
             </div>
             <div>
-              <label for="privacy-status">Privacy Status:</label>
-              <select id="privacy-status">
-                <option>public</option>
-                <option>unlisted</option>
-                <option>private</option>
-              </select>
             </div>
 
             <div>
@@ -89,6 +75,13 @@
             <p id="disclaimer">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
           </div>
         </div>
+      </div>
+      <form action="{{url_for('create')}}" method='POST'>
+        {{form.csrf_token}}
+        <input type="hidden" id="vidurl">
+        <input type="hidden" id="vidtitle">
+        <input type="submit">
+      </form>
 
 
   </section>

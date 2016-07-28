@@ -101,9 +101,11 @@ UploadVideo.prototype.uploadFile = function(file) {
       categoryId: this.categoryId
     },
     status: {
-      privacyStatus: $('#privacy-status option:selected').text()
+      // privacyStatus: $('#privacy-status option:selected').text()
+      privacyStatus: "unlisted" // only want to have unlisted vids
     }
   };
+  $('#vidtitle').val($('#title').val());
   var uploader = new MediaUploader({
     baseUrl: 'https://www.googleapis.com/upload/youtube/v3/videos',
     file: file,
@@ -148,6 +150,7 @@ UploadVideo.prototype.uploadFile = function(file) {
       var uploadResponse = JSON.parse(data);
       this.videoId = uploadResponse.id;
       $('#video-id').text(this.videoId);
+      $('#vidurl').val("https://www.youtube.com/embed/" + this.videoId);
       $('.post-upload').show();
       this.pollForVideoStatus();
     }.bind(this)
