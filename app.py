@@ -1,9 +1,13 @@
 #imports
-from flask import Flask, request, redirect, url_for, flash, render_template
+from flask import Flask, request, redirect, url_for, flash, render_template, jsonify, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from forms import PostForm, UserForm
 from flask_wtf import CsrfProtect
 from datetime import datetime
+from functools import wraps
+import os
+import json
+import requests
 
 #config
 app = Flask(__name__)
@@ -45,6 +49,38 @@ class Post(db.Model):
     self.url = url
     self.game = game
     self.timestamp = datetime.utcnow()
+
+# Here we're using the /callback route.
+@app.route('/callback')
+def callback_handling():
+  env = os.environ
+  code = request.args.get('code')
+
+  json_header = {'content-type': 'application/json'}
+
+  token_url = "https://{domain}/oauth/token".format(domain='rbudzak.auth0.com')
+
+  token_payload = {
+    'client_id':     'il4kY37SVusYd9IDOeuIeqqiOhiti85i',
+    'client_secret': 'oyOC8rLBBNUK0_xch6dlZQwSH1qSIW93p3ttMIj1Jfi9Ww0j2q5d-ICFFx8Ek5Ut',
+    'redirect_uri':  'http://YOUR_APP/callback',
+    'code':          code,
+    'grant_type':    'authorization_code'
+  }
+
+  token_info = requests.post(token_url, data=json.dumps(token_payload), headers = json_header).json()
+
+  user_url = "https://{domain}/userinfo?access_token={access_token}" \
+      .format(domain='rbudzak.auth0.com', access_token=token_info['access_token'])
+
+  user_info = requests.get(user_url).json()
+
+  # We're saving all user information into the session
+  session['profile'] = user_info
+
+  # Redirect to the User logged in page that you want here
+  # In our case it's /dashboard
+  return redirect('/dashboard')
 
 
 #routes - posts

@@ -8,7 +8,7 @@ class PostForm(Form):
   url = StringField('url', validators=[DataRequired()])
   game = IntegerField('game', validators=[DataRequired()])
 
-class UserForm(Form):
+# class UserForm(Form):
 
-  username = StringField('username', validators=[DataRequired()])
-  password = StringField('password', validators=[DataRequired()])
+#   username = StringField('username', validators=[DataRequired()])
+#   password = StringField('password', validators=[DataRequired()])

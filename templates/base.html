@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
+
+    <title>EpicWhen</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/theme.css" rel="stylesheet" media="screen">
+  <style>
+    body{
+      background:url(images/blured.png) fixed repeat;
+      background-size:100% 100%;
+    }
+  </style>
 </head>
 <body>
   {% block content %}
   {% endblock  %}
 </body>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script type="text/javascript">
+  var lock = new Auth0Lock('il4kY37SVusYd9IDOeuIeqqiOhiti85i', 'rbudzak.auth0.com', {
+    auth: {
+      redirectUrl: '',
+      responseType: 'code',
+      params: {
+        scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+      }
+    }
+  });
+</script>
+
 </html>
