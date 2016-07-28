@@ -1,7 +1,7 @@
 #imports
 from flask import Flask, request, redirect, url_for, flash, render_template, jsonify, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from forms import PostForm, UserForm
+from forms import PostForm
 from flask_wtf import CsrfProtect
 from datetime import datetime
 from functools import wraps
@@ -63,7 +63,7 @@ def callback_handling():
   token_payload = {
     'client_id':     'il4kY37SVusYd9IDOeuIeqqiOhiti85i',
     'client_secret': 'oyOC8rLBBNUK0_xch6dlZQwSH1qSIW93p3ttMIj1Jfi9Ww0j2q5d-ICFFx8Ek5Ut',
-    'redirect_uri':  'http://YOUR_APP/callback',
+    'redirect_uri':  'http://localhost:3000/callback',
     'code':          code,
     'grant_type':    'authorization_code'
   }
@@ -94,7 +94,7 @@ def index():
 
 @app.route('/posts/new')
 def new():
-  return render_template('newpost.html', form=PostForm())
+  return render_template('new.html', form=PostForm())
 
 @app.route('/posts', methods=['POST'])
 def create():

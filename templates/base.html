@@ -6,10 +6,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/theme.css" rel="stylesheet" media="screen">
+<!--     <link href="/css/theme.css" rel="stylesheet" media="screen"> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
   <style>
     body{
-      background:url(images/blured.png) fixed repeat;
+      background:url({{ url_for('static', filename='images/blured.png') }}) fixed repeat;
       background-size:100% 100%;
     }
   </style>
@@ -19,8 +20,12 @@
   {% endblock  %}
 </body>
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script src="{{ url_for('static', filename='upload.js') }}">  </script>
+<script src="{{ url_for('static', filename='script.js') }}">  </script>
+<script src="http://apis.google.com/js/client:plusone.js"></script>
+
 <script type="text/javascript">
   var lock = new Auth0Lock('il4kY37SVusYd9IDOeuIeqqiOhiti85i', 'rbudzak.auth0.com', {
     auth: {
