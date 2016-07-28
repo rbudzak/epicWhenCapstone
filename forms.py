@@ -4,9 +4,11 @@ from wtforms.validators import DataRequired
 
 class PostForm(Form):
 
-  title = StringField('title', validators=[DataRequired()])
-  url = StringField('url', validators=[DataRequired()])
-  game = IntegerField('game', validators=[DataRequired()])
+  # title = StringField('title', validators=[DataRequired()])
+  # url = StringField('url', validators=[DataRequired()])
+  vidurl = StringField('vidurl')
+  vidtitle = StringField('vidtitle')
+  # game = IntegerField('game')
 
 # class UserForm(Form):
 

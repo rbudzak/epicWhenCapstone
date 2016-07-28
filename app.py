@@ -39,15 +39,17 @@ class Post(db.Model):
   title = db.Column(db.Text())
   url = db.Column(db.Text())
   game = db.Column(db.Text())
-  u_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
+  username = db.Column(db.Text())
   timestamp = db.Column(db.DateTime())
 
-  users = db.relationship('User', backref=db.backref('posts', lazy='dynamic'))
 
-  def __init__(self, title, url, game, timestamp):
+  # users = db.relationship('User', backref=db.backref('posts', lazy='dynamic'))
+
+  def __init__(self, title, url, game, username):
     self.title = title
     self.url = url
     self.game = game
+    self.username = username
     self.timestamp = datetime.utcnow()
 
 # Here we're using the /callback route.
@@ -113,12 +115,13 @@ def new():
 def create():
   form = PostForm()
   if form.validate_on_submit():
-    new_post = Post(form.title.data, form.url.data, 'Overwatch', session['profile']['name'])
+    import pdb; pdb.set_trace()
+    new_post = Post(request.form['vidtitle'], request.form['vidurl'], 'Overwatch', session['profile']['name'], )
     db.session.add(new_post)
     db.session.commit()
 
     return redirect(url_for('index'))
-  return render_template('new.html', form=form)
+  return render_template('new.html', form=PostForm())
 
 # These have been commented out since all of my auth is handled by Auth0/Google
 # #routes - users

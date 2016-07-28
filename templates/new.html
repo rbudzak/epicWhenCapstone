@@ -78,8 +78,8 @@
       </div>
       <form action="{{url_for('create')}}" method='POST'>
         {{form.csrf_token}}
-        <input type="hidden" id="vidurl">
-        <input type="hidden" id="vidtitle">
+        <input type="hidden" id="vidurl" name="vidurl">
+        <input type="hidden" id="vidtitle" name="vidtitle">
         <input type="submit">
       </form>
 
