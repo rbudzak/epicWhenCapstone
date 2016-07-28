@@ -1,0 +1,12 @@
+  {% extends 'base.html' %}
+
+  {% block content %}
+  
+  <h1>Check out all my cool possts</h1>
+  {% for car in cars %}
+    <p>Title: {{post.title}}</p>
+    <p>URL: {{car.url}}</p>
+    <p>Game: {{car.game}}</p>
+  {% endfor %}
+  
+  {% endblock  %}

@@ -1,0 +1,11 @@
+  {% extends 'base.html' %}
+  
+  {% block content %}
+  <form action="{{url_for('create')}}" method='POST'>
+    {{form.csrf_token}}
+    Make: {{form.make}}
+    Model: {{form.model}}
+    Year: {{form.year}}
+    <input type="submit">
+  </form>
+  {% endblock  %}
