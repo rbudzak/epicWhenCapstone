@@ -24,11 +24,11 @@ class User(db.Model):
   __tablename__ = 'users'
   
   id = db.Column(db.Integer, primary_key=True)
-  user = db.Column(db.Text(), unique=True)
+  name = db.Column(db.Text(), unique=True)
   password = db.Column(db.Text())
 
-  def __init__(self, user, password):
-    self.user = user
+  def __init__(self, name, password):
+    self.name = name
     self.password = password
 
 class Post(db.Model):
