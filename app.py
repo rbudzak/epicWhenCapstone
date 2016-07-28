@@ -107,25 +107,26 @@ def create():
     return redirect(url_for('index'))
   return render_template('newpost.html', form=form)
 
-#routes - users
-@app.route('/users')
-def userList():
-  return render_template('users.html', posts=User.query.all())
+# These have been commented out since all of my auth is handled by Google
+# #routes - users
+# @app.route('/users')
+# def userList():
+#   return render_template('users.html', posts=User.query.all())
 
-@app.route('/users/new')
-def newUser():
-  return render_template('newuser.html', form=PostForm())
+# @app.route('/users/new')
+# def newUser():
+#   return render_template('newuser.html', form=PostForm())
 
-@app.route('/users', methods=['POST'])
-def createUser():
-  form = UserForm()
-  if form.validate_on_submit():
-    new_user = User(form.username.data, form.password.data)
-    db.session.add(new_user)
-    db.session.commit()
+# @app.route('/users', methods=['POST'])
+# def createUser():
+#   form = UserForm()
+#   if form.validate_on_submit():
+#     new_user = User(form.username.data, form.password.data)
+#     db.session.add(new_user)
+#     db.session.commit()
 
-    return redirect(url_for('index'))
-  return render_template('newuser.html', form=form)
+#     return redirect(url_for('index'))
+#   return render_template('newuser.html', form=form)
 
 if __name__ == '__main__':
   app.run(debug=True, port=3000)
